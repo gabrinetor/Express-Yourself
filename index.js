@@ -1,7 +1,13 @@
 const express = require('express')
 const app = express()
 
-app.use('/ola',(req, res) => {
+app.use((req, res, next) => {
+    console.log('Antes...')
+    next()
+})
+
+app.get('/ola', (req, res, next) => {
+    console.log('Durante...')
     res.json({
         data: [
             { id: 7, name: 'Luana', position: 1 },
@@ -13,6 +19,8 @@ app.use('/ola',(req, res) => {
         limit: 3,
         status: 200
     })
+
+    next()
 
     // res.json([
     //     { id: 7, name: 'Luana', position: 1 },
@@ -27,6 +35,11 @@ app.use('/ola',(req, res) => {
     // })
 
     // res.send('Está Ok!')
+})
+
+app.use((req, res) => {
+    console.log('Depois...')
+    next()
 })
 
 app.listen(3030, () => {
