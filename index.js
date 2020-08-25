@@ -4,6 +4,9 @@ const bodyParser = require('body-parser')
 
 const olaMid = require('./olaMid')
 const usuarioApi = require('./api/usuario')
+const produtoApi = require('./api/produto')(app, 'com parâmetro!') //é uma função com seus parâmetros..
+produtoApi(app, 'com parâmetro!')
+
 
 app.post('/usuario', usuarioApi.salvar)
 app.get('/usuario', usuarioApi.obter)
