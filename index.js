@@ -1,7 +1,13 @@
 const express = require('express')
 const app = express()
+const bodyParser = require('body-parser')
 
 const olaMid = require('./olaMid')
+
+
+app.use(bodyParser.text()) //qualquer texto que chegue no corpo da requisição será interpretado
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))  //interpreta outros tipos de dados, além dos padrão
 
 app.use(olaMid('Gabriela'))
 
@@ -15,15 +21,18 @@ app.get('/clientes/relatorio', (req, res) => { //função mais específica, tamb
 })
 
 app.post('/corpo', (req, res) => {
-    let corpo = ''
-    req.on('data', function(parte){
-        corpo += parte
-    })
+    // let corpo = ''
+    // req.on('data', function(parte){
+    //     corpo += parte
+    // })
 
-    req.on('end', function() {
-        //res.json(JSON.parse(corpo)) //body parse interpreta e entrega o conteudo a mais resumido pronto no formato de objeto
-        res.send(corpo)
-    })
+    // req.on('end', function() {
+    //     //res.json(JSON.parse(corpo)) //body parse interpreta e entrega o conteudo a mais resumido pronto no formato de objeto
+    //     res.send(corpo)
+    // })
+    
+    res.send(req.body)
+    //res.send(JSON.stringify(req.body))
 })
 
 app.get('/clientes/:id', (req, res) => { //função mais generica
