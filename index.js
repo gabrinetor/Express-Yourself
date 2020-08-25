@@ -3,7 +3,10 @@ const app = express()
 const bodyParser = require('body-parser')
 
 const olaMid = require('./olaMid')
+const usuarioApi = require('./api/usuario')
 
+app.post('/usuario', usuarioApi.salvar)
+app.get('/usuario', usuarioApi.obter)
 
 app.use(bodyParser.text()) //qualquer texto que chegue no corpo da requisição será interpretado
 app.use(bodyParser.json())
